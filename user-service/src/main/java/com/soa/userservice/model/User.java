@@ -1,10 +1,9 @@
 package com.soa.userservice.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 public class User {
     private int id;
     private String name;
+    private String homeService;
 
     public User() {
     }
@@ -12,6 +11,12 @@ public class User {
     public User(int id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public User(int id, String name, String homeService) {
+        this.id = id;
+        this.name = name;
+        this.homeService = homeService;
     }
 
     public User(String name) {
@@ -35,6 +40,14 @@ public class User {
         this.name = name;
     }
     */
+
+    public String getHomeService() {
+        return homeService;
+    }
+
+    public void setHomeService(String homeService) {
+        this.homeService = homeService;
+    }
 
     @Override
     public String toString() {

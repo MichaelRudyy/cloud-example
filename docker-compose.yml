@@ -1,0 +1,47 @@
+version: "3"
+services:
+    config:
+        container_name: config-server
+        build:
+            context: ./cloud-config-service
+            dockerfile: Dockerfile
+        image: config-server:latest
+        expose:
+            - 8888
+        ports:
+            - 8888:8888
+        networks:
+            - sc-network
+    eureka:
+        container_name: eureka-server
+        build:
+            context: ./eureka-server
+            dockerfile: Dockerfile
+        expose:
+            - 8761
+        ports:
+            - 8761:8761
+        networks:
+            - sc-network
+        depends_on:
+            - config
+    user:
+        container_name: user-service
+        build:
+            context: ./user-service
+            dockerfile: Dockerfile
+        expose:
+            - 8080
+        ports:
+            - 8080:8080
+        networks:
+            - sc-network
+        depends_on:
+            - config
+            - eureka
+networks:
+    sc-network:
+        driver: bridge
+#volumes:
+#    spring-cloud-config-repo:
+#        external: true
